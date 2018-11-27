@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * @file
+ * Contains dummy_scheduler.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function dummy_scheduler_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the dummy_scheduler module.
+    case 'help.page.dummy_scheduler':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Create a schedule of content') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function dummy_scheduler_theme($existing, $type, $theme, $path) {
+  return [
+    'dummy_scheduler' => [
+      'variables' => ['items' => NULL],
+    ],
+    'dummy_scheduler__link' => [
+      'variables' => ['url' => NULL],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function dummy_scheduler_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($entity->bundle() == 'article') {
+
+    $scheduler_add_path = \Drupal::request()->getSchemeAndHttpHost() . '/web/dummy_scheduler/add/' . $entity->id();
+
+    $schedule_link = [
+      '#theme' => 'dummy_scheduler__link',
+      '#url' => $scheduler_add_path,
+    ];
+
+    $build['scheduler_link'] = [
+      '#markup' => \Drupal::service('renderer')->render($schedule_link),
+      '#attach' => [
+        'library' => 'dummy_scheduler/link'
+      ],
+      '#weight' => 100,
+      '#cache' => [
+        'tags' => $entity->getEntityType()->getListCacheTags(),
+      ],
+    ];
+  }
+}
