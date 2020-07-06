@@ -25,7 +25,6 @@ function dummy_scheduler_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
-
 /**
  * Implements hook_theme().
  */
@@ -63,5 +62,6 @@ function dummy_scheduler_entity_view(array &$build, EntityInterface $entity, Ent
         'tags' => $entity->getEntityType()->getListCacheTags(),
       ],
     ];
+
   }
 }

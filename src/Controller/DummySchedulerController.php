@@ -13,22 +13,30 @@ use Drupal\dummy_scheduler\Utility;
 class DummySchedulerController extends ControllerBase {
 
   /**
-   * addToScheduler.
+   * addToSchedule.
    *
+   * @param string
+   *   Node id
    * @return array
-   *   Return addto schedule.
+   *   Return render array with items.
    */
   public function addToSchedule($nid) {
+    if (isset($_SESSION['dummy_scheduler']['schedule'])) {
+      if (!in_array($nid, $_SESSION['dummy_scheduler']['schedule'])) {
+        // Add the node to the schedule.
+        Utility::addToSchedule($nid);
 
-    if (!in_array($nid, $_SESSION['dummy_scheduler']['schedule'])) {
-      Utility::addToSchedule($nid);
+        // Load the node based on nid.
+        $node = Node::load($nid);
 
-      $node = Node::load($nid);
-
-      $_SESSION['dummy_scheduler']['schedule'][$nid] = [
-        'title' => $node->label(),
-        'url' => $node->toUrl()->toString()
-      ];
+        // Store session data.
+        $_SESSION['dummy_scheduler']['schedule'][$nid] = [
+          'title' => $node->label(),
+          'url' => $node->toUrl()->toString()
+        ];
+      }
+    } else {
+      $_SESSION['dummy_scheduler']['schedule'] = [];
     }
 
     return [
@@ -39,7 +47,7 @@ class DummySchedulerController extends ControllerBase {
   }
 
   /**
-   * viewScheduler.
+   * viewSchedule.
    *
    * @return array
    *   Return schedule view.
@@ -58,6 +66,12 @@ class DummySchedulerController extends ControllerBase {
 
   }
 
+  /**
+   * resetSchedule.
+   *
+   * @return array
+   *   Return empty schedule session.
+   */
   public function resetSchedule() {
     $_SESSION['dummy_scheduler']['schedule'] = [];
     $items = [];

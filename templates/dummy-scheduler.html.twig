@@ -1,4 +1,5 @@
 <div class="dummy-schedule">
+
   {% if items %}
     <ul>
     {% for item in items %}
@@ -7,9 +8,11 @@
     </ul>
 
     <a href="/web/dummy_scheduler/reset" class="btn btn-primary use-ajax" data-dialog-options="{&quot;width&quot;:400}" data-dialog-renderer="off_canvas" data-dialog-type="dialog">Reset Schedule</a>
+
   {% else %}
 
-    <div class="alert">You do not have any items scheduled.</div>
+    <div class="alert alert-primary" role="alert">You do not have any items scheduled.</div>
 
   {% endif %}
+
 </div>
