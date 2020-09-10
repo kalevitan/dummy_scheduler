@@ -1,5 +1,5 @@
 dummy_scheduler.dummy_scheduler_controller_add:
-  path: '/dummy_scheduler/add/{nid}'
+  path: '/dummy-scheduler/add/{nid}'
   defaults:
     _controller: '\Drupal\dummy_scheduler\Controller\DummySchedulerController::addToSchedule'
     _title: 'Added to Schedule'
@@ -7,7 +7,7 @@ dummy_scheduler.dummy_scheduler_controller_add:
     _permission: 'access content'
 
 dummy_scheduler.dummy_scheduler_controller_view:
-  path: '/dummy_scheduler/view'
+  path: '/dummy-scheduler/view'
   defaults:
     _controller: '\Drupal\dummy_scheduler\Controller\DummySchedulerController::viewSchedule'
     _title: 'Your Schedule'
@@ -15,7 +15,7 @@ dummy_scheduler.dummy_scheduler_controller_view:
     _permission: 'access content'
 
 dummy_scheduler.dummy_scheduler_controller_reset:
-  path: '/dummy_scheduler/reset'
+  path: '/dummy-scheduler/reset'
   defaults:
     _controller: '\Drupal\dummy_scheduler\Controller\DummySchedulerController::resetSchedule'
     _title: 'Schedule Reset'

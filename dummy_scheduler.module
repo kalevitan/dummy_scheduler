@@ -45,7 +45,7 @@ function dummy_scheduler_theme($existing, $type, $theme, $path) {
 function dummy_scheduler_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
   if ($entity->bundle() == 'article') {
 
-    $scheduler_add_path = \Drupal::request()->getSchemeAndHttpHost() . '/web/dummy_scheduler/add/' . $entity->id();
+    $scheduler_add_path = \Drupal::request()->getSchemeAndHttpHost() . '/dummy-scheduler/add/' . $entity->id();
 
     $schedule_link = [
       '#theme' => 'dummy_scheduler__link',
